@@ -1,0 +1,33 @@
+{
+  "name": "cucumberframeworkjune26",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+   
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/automationtesthub/CucumberFrameworkJune26.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/automationtesthub/CucumberFrameworkJune26/issues"
+  },
+  "homepage": "https://github.com/automationtesthub/CucumberFrameworkJune26#readme",
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.2.1",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "multiple-cucumber-html-reporter": "^4.2.0",
+    "xlsx": "^0.18.5"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "features/**/*.ts",
+    "step-definitions/**/*.ts",
+    "pages/**/*.ts",
+    "fixtures/**/*.ts",
+    "hooks/**/*.ts",
+    "support/**/*.ts",
+    "utils/**/*.ts"
+  ]
+}
