@@ -1,0 +1,16 @@
+{  
+    "Valid_login_TC01": {
+      "username": "admin",
+      "password": "admin"
+    },
+    "InValid_login_TC02": {
+      "username": "wronguser",
+      "password": "wrongpassword"
+    },
+      "lead_creation_TC05": {
+      "username": "admin",
+      "password": "admin",
+      "lastname": "Smith",
+      "company": "ABC Corp"
+    }
+}

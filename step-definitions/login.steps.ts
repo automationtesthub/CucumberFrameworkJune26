@@ -1,9 +1,14 @@
-import {Given,When,Then} from "@cucumber/cucumber"
+import data from "../testdata/data.json";
+import { Given, When, Then } from "@cucumber/cucumber";
 
 import {Browser, chromium,expect} from '@playwright/test'
 import { LoginPage } from "../pages/loginpage";
 import { HomePage } from "../pages/homepage";
 import { LeadPage } from "../pages/leadpage";
+
+//import { data } from "testdata/data.json";
+
+
 
 
 
@@ -11,9 +16,14 @@ let page:any;
 let lp:LoginPage;
 let hp:HomePage;
 let ldp:LeadPage;
+let testData: any;
 
 
 Given('User should be on login page',async function () {
+
+  
+
+  
  
   const browser = await chromium.launch({headless:false});
   const context = await browser.newContext();
@@ -33,7 +43,7 @@ When('user enters the valid credentials and click login button',async function (
   // await page.locator("//input[@name='user_name']").fill("admin");
   // await page.locator("//input[@name='user_password']").fill("admin");
   // await page.locator("//input[@name='Login']").click();
-    lp.login("admin","admin");
+    lp.login(this.testData.username, this.testData.password);
 
 });
 
@@ -53,7 +63,7 @@ When('user enters the invalid credentials and click login button',async function
   //  await page.locator("//input[@name='user_name']").fill("admin22");
   // await page.locator("//input[@name='user_password']").fill("admin45");
   // await page.locator("//input[@name='Login']").click();
-  lp.login("admin22","admin45");
+  lp.login(this.testData.username, this.testData.password);
 });
 
 Then('user should navigated to login page',async function () {
@@ -66,12 +76,20 @@ Then('User can validate the error message',async function () {
  lp.verifyErrorMsg();
 });
 
+
+Then('validate lead creation with lastname and company',async function () {
+await hp.clickNewLead();
+ await ldp.createlead(this.testData.lastname,this.testData.company);
+
+});
+
 When('user enters the username as {string} and password as {string} and click login button',async function (uid, pwd) {
   //   await page.locator("//input[@name='user_name']").fill(uid);
   //   await page.waitForTimeout(2000);
   // await page.locator("//input[@name='user_password']").fill(pwd);
   // await page.locator("//input[@name='Login']").click();
   lp.login(uid,pwd);
+
 });
 
 When('verify lead creation with lastname {string} and company {string}',async function (string, string2, dataTable) {
