@@ -2,9 +2,10 @@ import data from "../testdata/data.json";
 import { Given, When, Then } from "@cucumber/cucumber";
 
 import {Browser, chromium,expect} from '@playwright/test'
-import { LoginPage } from "../pages/loginpage";
-import { HomePage } from "../pages/homepage";
-import { LeadPage } from "../pages/leadpage";
+
+import { CustomWorld } from '../support/world';
+
+
 
 //import { data } from "testdata/data.json";
 
@@ -12,28 +13,21 @@ import { LeadPage } from "../pages/leadpage";
 
 
 
-let page:any;
-let lp:LoginPage;
-let hp:HomePage;
-let ldp:LeadPage;
+
+
 let testData: any;
 
 
 Given('User should be on login page',async function () {
 
-  
+   await this.page.goto("http://localhost:100");
 
-  
- 
-  const browser = await chromium.launch({headless:false});
-  const context = await browser.newContext();
-  page = await context.newPage();
- 
-  await page.goto("http://localhost:100");
 
-  lp = new LoginPage(page);
-  hp = new HomePage(page);
-  ldp = new LeadPage(page);
+
+  this.loginPage = this.pom.getLoginPage();
+  this.homePage = this.pom.getHomePage();
+  this.leadPage = this.pom.getLeadPage();
+  
 
 
 });
@@ -43,43 +37,44 @@ When('user enters the valid credentials and click login button',async function (
   // await page.locator("//input[@name='user_name']").fill("admin");
   // await page.locator("//input[@name='user_password']").fill("admin");
   // await page.locator("//input[@name='Login']").click();
-    lp.login(this.testData.username, this.testData.password);
+   // this.loginPage.login(this.testData.username, this.testData.password);
+     this.pom.getLoginPage().login(this.testData.username, this.testData.password);
 
 });
 
 Then('user should navigated to Home page', async function () {
   //await expect(page.locator("//a[text()='Home']")).toBeVisible();
-  hp.verifyHomeLink();
+  this.homePage.verifyHomeLink();
 
 
 });
 
 Then('User can validate the logout link', async function () {
  //await expect(page.locator("//a[text()='Logout']")).toBeVisible();
- hp.verifyLogoutLink();
+ this.homePage.verifyLogoutLink();
 });
 
 When('user enters the invalid credentials and click login button',async function () {
   //  await page.locator("//input[@name='user_name']").fill("admin22");
   // await page.locator("//input[@name='user_password']").fill("admin45");
   // await page.locator("//input[@name='Login']").click();
-  lp.login(this.testData.username, this.testData.password);
+  this.loginPage.login(this.testData.username, this.testData.password);
 });
 
 Then('user should navigated to login page',async function () {
   // await expect(page.locator("//input[@name='user_name']")).toBeVisible();
-  lp.verifyUserName();
+  this.loginPage.verifyUserName();
 });
 
 Then('User can validate the error message',async function () {
 //  await expect(page.locator("//*[contains(text(),'You must specify a valid username and password. ')]")).toBeVisible();
- lp.verifyErrorMsg();
+ this.loginPage.verifyErrorMsg();
 });
 
 
 Then('validate lead creation with lastname and company',async function () {
-await hp.clickNewLead();
- await ldp.createlead(this.testData.lastname,this.testData.company);
+await this.homePage.clickNewLead();
+ await this.leadPage.createlead(this.testData.lastname,this.testData.company);
 
 });
 
@@ -88,7 +83,7 @@ When('user enters the username as {string} and password as {string} and click lo
   //   await page.waitForTimeout(2000);
   // await page.locator("//input[@name='user_password']").fill(pwd);
   // await page.locator("//input[@name='Login']").click();
-  lp.login(uid,pwd);
+  this.loginPage.login(uid,pwd);
 
 });
 
@@ -98,17 +93,17 @@ When('verify lead creation with lastname {string} and company {string}',async fu
 
     for (const data of records) {
   // await page.locator("//a[text()='New Lead']").click();
-  await hp.clickNewLead();
+  await this.homePage.clickNewLead();
   // await page.locator("//input[@name='lastname']").fill(data.lastname);
   // await page.locator("//input[@name='company']").fill(data.company);
   // await page.locator("(//input[@name='button'])[1]").click();
-  await ldp.createlead(data.lastname,data.company);
+  await this.leadPage.createlead(data.lastname,data.company);
     }
 });
 
 When('user click on logout',async function () {
 
   // await page.locator("//a[text()='Logout']").click();
-  await hp.clickLogout();
+  await this.homePage.clickLogout();
  
 });
