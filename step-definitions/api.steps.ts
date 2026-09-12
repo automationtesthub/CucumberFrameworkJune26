@@ -33,6 +33,18 @@ response = await apiContext.get(string);
 
 });
 
+When('User perform delete operation with path {string}',async function (string) {
+ 
+response = await apiContext.delete(string);
+
+    responseBody = await response.json();
+
+    console.log(responseBody);
+
+    //await apiContext.dispose();
+
+});
+
 
 When('User perform POST operation with path {string} and request body with product details {string},{string},{string},{string},{string}',
     async function (
@@ -58,6 +70,66 @@ When('User perform POST operation with path {string} and request body with produ
         console.log(JSON.stringify(requestBody, null, 2));
 
         response = await apiContext.post(path, {
+            data: requestBody
+        });
+
+        responseBody = await response.json();
+
+        console.log('Response:');
+        console.log(JSON.stringify(responseBody, null, 2));
+    }
+);
+
+When('User perform PUT operation with path {string} and request body with product details {string},{string},{string},{string},{string}',
+    async function (
+        path: string,
+        name: string,
+        year: string,
+        price: string,
+        cpuModel: string,
+        hardDiskSize: string
+    ) {
+
+        const requestBody = {
+            name: name,
+            data: {
+                year: Number(year),
+                price: Number(price),
+                "CPU model": cpuModel,
+                "Hard disk size": hardDiskSize
+            }
+        };
+
+        console.log('Request Body:');
+        console.log(JSON.stringify(requestBody, null, 2));
+
+        response = await apiContext.put(path, {
+            data: requestBody
+        });
+
+        responseBody = await response.json();
+
+        console.log('Response:');
+        console.log(JSON.stringify(responseBody, null, 2));
+    }
+);
+
+When('User perform PATCH operation with path {string} and request body with product details {string}',
+    async function (
+        path: string,
+        name: string  
+       
+    ) {
+
+        const requestBody = {
+            name: name
+          
+        };
+
+        console.log('Request Body:');
+        console.log(JSON.stringify(requestBody, null, 2));
+
+        response = await apiContext.put(path, {
             data: requestBody
         });
 
@@ -142,5 +214,80 @@ Then('user can validate product added successfully with name {string}, year {str
         console.log('Price:', responseBody.data.price);
         console.log('CPU:', responseBody.data['CPU model']);
         console.log('Hard Disk:', responseBody.data['Hard disk size']);
+    }
+);
+
+Then('user can validate product updated successfully with name {string}, year {string}, price {string}, CPU model {string}, and hard disk size {string}',
+    function (
+        expectedName: string,
+        expectedYear: string,
+        expectedPrice: string,
+        expectedCpuModel: string,
+        expectedHardDiskSize: string
+    ) {
+
+        // Validate ID is generated
+        expect(responseBody.id).toBeDefined();
+
+        // Validate product details
+        expect(responseBody.name).toBe(expectedName);
+
+        expect(responseBody.data.year)
+            .toBe(Number(expectedYear));
+
+        expect(responseBody.data.price)
+            .toBe(Number(expectedPrice));
+
+        expect(responseBody.data['CPU model'])
+            .toBe(expectedCpuModel);
+
+        expect(responseBody.data['Hard disk size'])
+            .toBe(expectedHardDiskSize);
+
+        console.log('Product created successfully');
+       
+        console.log('Name:', responseBody.name);
+        console.log('Year:', responseBody.data.year);
+        console.log('Price:', responseBody.data.price);
+        console.log('CPU:', responseBody.data['CPU model']);
+        console.log('Hard Disk:', responseBody.data['Hard disk size']);
+    }
+);
+
+
+
+Then('user can validate product updated successfully with name {string}',
+    function (
+        expectedName: string
+       
+    ) {
+
+        // Validate ID is generated
+        expect(responseBody.id).toBeDefined();
+
+        // Validate product details
+        expect(responseBody.name).toBe(expectedName);
+
+       
+        console.log('Name:', responseBody.name);
+        
+    }
+);
+
+
+Then('user can validate delete msg',
+    function (
+        
+       
+    ) {
+
+       
+
+        // Validate product details
+        expect(responseBody.message).toContain('has been deleted');
+
+       
+       
+        
     }
 );
