@@ -1,3 +1,4 @@
+@allAPI
 Feature: All API testing
 
 
