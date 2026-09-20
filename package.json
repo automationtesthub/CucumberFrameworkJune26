@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js --tags=\"@dt\"",
+    "test": "cucumber-js --tags=\"@cl\"",
     "test:smoke": "cucumber-js --config support/cucumber.js --tags='@smoke'",
     "test:regression": "cucumber-js --config support/cucumber.js --tags \"@regression\"",
     "typecheck": "tsc --noEmit"

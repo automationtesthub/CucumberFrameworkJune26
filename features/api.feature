@@ -1,6 +1,6 @@
 Feature: All API testing
 
-
+  @cl
   Scenario Outline: List all your collection info
     Given user endpoint is "https://api.restful-api.dev"
     When User perform GET operation with path "<path>"
@@ -8,7 +8,7 @@ Feature: All API testing
     Then user can validate collection name "<collectionName>" and object count "<objectCount>"
   Examples:  
   |path | statusCode | collectionName | objectCount |
-  | /collections | 200 | products | 4 |
+  | /collections | 200 | products | 7 |
 
 
    Scenario Outline: List all objects in a collection
