@@ -9,7 +9,7 @@ Scenario: Valid_login_TC01
 When user enters the valid credentials and click login button
 Then user should navigated to Home page
 And User can validate the logout link
-@dt
+
 Scenario: InValid_login_TC02
 When user enters the invalid credentials and click login button
 Then user should navigated to login page

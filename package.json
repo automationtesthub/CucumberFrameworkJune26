@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "cucumber-js --tags=\"@dt\"",
+    "test:smoke": "cucumber-js --config support/cucumber.js --tags='@smoke'",
+    "test:regression": "cucumber-js --config support/cucumber.js --tags \"@regression\"",
+    "typecheck": "tsc --noEmit"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/automationtesthub/CucumberFrameworkJune26.git"
