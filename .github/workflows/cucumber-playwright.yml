@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - main
-      - master
+
   pull_request:
     branches:
       - main
-      - master
+
+  schedule:
+    - cron: '*/5 * * * *'  # Runs every 5 minutes
+
   workflow_dispatch:
 
 jobs:
