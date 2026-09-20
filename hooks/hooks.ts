@@ -17,8 +17,10 @@ Before(async function (scenario) {
     console.log("Excel Data:", this.testData);
     console.log("=================================");
 
-     this.browser = await chromium.launch({
-        headless: false
+    const isHeadless = process.env.HEADLESS !== 'false';
+
+    this.browser = await chromium.launch({
+        headless: isHeadless
     });
 
     this.context = await this.browser.newContext();
